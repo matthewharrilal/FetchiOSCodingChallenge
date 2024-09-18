@@ -10,6 +10,20 @@ import UIKit
 class MealsViewController: UIViewController {
     
     private let mealsService: MealsProtocol
+    
+    private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
+    
+    private var meals: AllMeals = AllMeals(meals: []) {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private enum Section {
+        case main
+    }
         
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -32,13 +46,12 @@ class MealsViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         setup()
-        
-        Task {
-            try await mealsService.fetchMeals()
-        }
+        configureDataSource()
+        fetchAllMeals()
     }
 }
 
+// MARK: UI/Setup Related Methods
 private extension MealsViewController {
     
     func setup() {
@@ -51,5 +64,39 @@ private extension MealsViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+// MARK: Data Source Related Methods
+private extension MealsViewController {
+    
+    func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Meal>(tableView: tableView, cellProvider: { tableView, indexPath, meal in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MealTableViewCell.identifier, for: indexPath) as? MealTableViewCell else { return UITableViewCell() }
+            
+            cell.configure(meal: meal)
+            return cell
+        })
+    }
+    
+    func fetchAllMeals() {
+        Task {
+            if let meals = try await mealsService.fetchMeals() {
+                self.meals = meals
+            }
+            
+            await MainActor.run {
+                applySnapshot()
+            }
+        }
+    }
+    
+    func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Meal>()
+        snapshot.appendSections([.main])
+        
+        // MARK: TODO Update Naming Here
+        snapshot.appendItems(meals.meals)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
