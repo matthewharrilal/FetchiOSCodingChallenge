@@ -44,11 +44,11 @@ class MealTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(aggregatedMeal: AggregatedMeal) {
-        nameLabel.text = aggregatedMeal.title
-        descriptionLabel.text = aggregatedMeal.description
+    func configure(meal: Meal) {
+        nameLabel.text = meal.strMeal
+        descriptionLabel.text = meal.idMeal
         
-        if let image = aggregatedMeal.thumbnailImage {
+        if let image = meal.thumbnailImage {
             thumbnailImageView.image = image
         } else {
             // MARK: TODO Use placeholder image

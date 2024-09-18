@@ -16,11 +16,13 @@ struct Meal: Decodable, Hashable {
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
-}
-
-struct AggregatedMeal {
-    let title: String
-    let description: String
     
-    var thumbnailImage: UIImage?
+    var thumbnailImage: UIImage? = nil
+    
+    // Adding these coding keys explicitly to ignore thumbnail image during decoding process
+    enum CodingKeys: String, CodingKey {
+        case strMeal
+        case strMealThumb
+        case idMeal
+    }
 }
