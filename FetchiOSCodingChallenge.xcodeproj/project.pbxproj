@@ -19,6 +19,7 @@
 		76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFD2C9B864D008BCD6E /* Meals.swift */; };
 		76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFF2C9B871B008BCD6E /* NetworkService.swift */; };
 		76922E022C9B909D008BCD6E /* MealsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E012C9B909D008BCD6E /* MealsService.swift */; };
+		76922E042C9B92A6008BCD6E /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E032C9B92A6008BCD6E /* MealTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		76922DFD2C9B864D008BCD6E /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
 		76922DFF2C9B871B008BCD6E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		76922E012C9B909D008BCD6E /* MealsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsService.swift; sourceTree = "<group>"; };
+		76922E032C9B92A6008BCD6E /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 		7673848E2C9B7F1D00F96AC9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				76922E032C9B92A6008BCD6E /* MealTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			files = (
 				76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */,
 				76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */,
+				76922E042C9B92A6008BCD6E /* MealTableViewCell.swift in Sources */,
 				767384602C9B7F0500F96AC9 /* ViewController.swift in Sources */,
 				7673845C2C9B7F0500F96AC9 /* AppDelegate.swift in Sources */,
 				76922E022C9B909D008BCD6E /* MealsService.swift in Sources */,
