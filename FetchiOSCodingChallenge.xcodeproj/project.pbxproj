@@ -18,6 +18,7 @@
 		7673847F2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7673847E2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift */; };
 		76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFD2C9B864D008BCD6E /* Meals.swift */; };
 		76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFF2C9B871B008BCD6E /* NetworkService.swift */; };
+		76922E022C9B909D008BCD6E /* MealsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E012C9B909D008BCD6E /* MealsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		7673847E2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchiOSCodingChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		76922DFD2C9B864D008BCD6E /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
 		76922DFF2C9B871B008BCD6E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		76922E012C9B909D008BCD6E /* MealsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				76922DFF2C9B871B008BCD6E /* NetworkService.swift */,
+				76922E012C9B909D008BCD6E /* MealsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */,
 				767384602C9B7F0500F96AC9 /* ViewController.swift in Sources */,
 				7673845C2C9B7F0500F96AC9 /* AppDelegate.swift in Sources */,
+				76922E022C9B909D008BCD6E /* MealsService.swift in Sources */,
 				7673845E2C9B7F0500F96AC9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

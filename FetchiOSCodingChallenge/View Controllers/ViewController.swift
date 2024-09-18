@@ -9,14 +9,10 @@ import UIKit
 
 class MealsViewController: UIViewController {
     
-    private let networkService: NetworkProtocol
+    private let mealsService: MealsProtocol
     
-    enum Constants {
-        static let urlString: String = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
-    }
-    
-    init(networkService: NetworkProtocol) {
-        self.networkService = networkService
+    init(mealsService: MealsProtocol) {
+        self.mealsService = mealsService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,18 +24,10 @@ class MealsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        view.backgroundColor = .white
+        
         Task {
-            do {
-                if let meals: AllMeals = try await networkService.executeRequest(urlString: Constants.urlString) {
-                    print(meals)
-                } else {
-                    print("No meals found")
-                }
-                
-            }
-            catch {
-                print(error)
-            }
+            try await mealsService.fetchMeals()
         }
     }
 }

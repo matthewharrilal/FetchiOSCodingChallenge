@@ -19,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         let networkService = NetworkService()
-        let mealsViewController = MealsViewController(networkService: networkService)
+        let mealsService = MealsService(networkService: networkService)
+
+        let mealsViewController = MealsViewController(mealsService: mealsService)
         window?.rootViewController = mealsViewController
         window?.makeKeyAndVisible()
     }
