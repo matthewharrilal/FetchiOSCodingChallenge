@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-struct AllMeals: Decodable {
+struct AllMeals: Decodable, Hashable {
     let meals: [Meal]
 }
 
-struct Meal: Decodable {
+struct Meal: Decodable, Hashable {
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
