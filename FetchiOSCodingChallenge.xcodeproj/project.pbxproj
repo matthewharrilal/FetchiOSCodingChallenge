@@ -17,6 +17,7 @@
 		7673847D2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7673847C2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITests.swift */; };
 		7673847F2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7673847E2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift */; };
 		76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFD2C9B864D008BCD6E /* Meals.swift */; };
+		76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922DFF2C9B871B008BCD6E /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		7673847C2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchiOSCodingChallengeUITests.swift; sourceTree = "<group>"; };
 		7673847E2C9B7F0600F96AC9 /* FetchiOSCodingChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchiOSCodingChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		76922DFD2C9B864D008BCD6E /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
+		76922DFF2C9B871B008BCD6E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		7673848D2C9B7F1800F96AC9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				76922DFF2C9B871B008BCD6E /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */,
 				76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */,
 				767384602C9B7F0500F96AC9 /* ViewController.swift in Sources */,
 				7673845C2C9B7F0500F96AC9 /* AppDelegate.swift in Sources */,
