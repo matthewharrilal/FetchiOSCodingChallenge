@@ -10,6 +10,13 @@ import UIKit
 class MealsViewController: UIViewController {
     
     private let mealsService: MealsProtocol
+        
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MealTableViewCell.self, forCellReuseIdentifier: MealTableViewCell.identifier)
+        return tableView
+    }()
     
     init(mealsService: MealsProtocol) {
         self.mealsService = mealsService
@@ -24,7 +31,7 @@ class MealsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = .white
+        setup()
         
         Task {
             try await mealsService.fetchMeals()
@@ -32,3 +39,17 @@ class MealsViewController: UIViewController {
     }
 }
 
+private extension MealsViewController {
+    
+    func setup() {
+        view.addSubview(tableView)
+        view.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+}
