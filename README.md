@@ -1,4 +1,3 @@
-```markdown
 # Recipe Explorer - iOS Coding Challenge
 
 ## Overview
@@ -53,4 +52,3 @@ The app is built using **Swift Concurrency (async/await)** for efficient and smo
 - Add offline caching of meals and recipes.
 - Implement a search feature to explore other recipe categories.
 - Improve the user interface with custom designs and animations.
-```
