@@ -10,6 +10,7 @@ import Foundation
 protocol MealsProtocol {
     func fetchMealCollection() async throws -> MealCollection?
     func fetchImagesForMealCollection(mealCollection: MealCollection) async throws -> AsyncThrowingStream<MealThumbnail?, Error>
+    func fetchDetailsForMeal(meal: Meal) async throws -> MealDetails?
 }
 
 struct MealsService: MealsProtocol {
@@ -17,7 +18,9 @@ struct MealsService: MealsProtocol {
     private let networkService: NetworkProtocol
     
     enum Constants {
+        // MARK: TODO Eventually interpolate this to use query params
         static let mealCollectionURLString: String = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
+        static let mealDetailURLString: String = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     }
     
     init(networkService: NetworkProtocol) {
@@ -73,6 +76,20 @@ struct MealsService: MealsProtocol {
                     continuation.finish(throwing: error)
                 }
             }
+        }
+    }
+    
+    func fetchDetailsForMeal(meal: Meal) async throws -> MealDetails? {
+        do {
+            if let mealDetails: MealDetails = try await networkService.executeRequest(urlString: Constants.mealDetailURLString + meal.idMeal) {
+                return mealDetails
+            } else {
+                print("No details found for this meal, \(meal.strMeal)")
+                return nil
+            }
+        }
+        catch {
+            throw error
         }
     }
 }
