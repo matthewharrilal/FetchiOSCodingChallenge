@@ -39,4 +39,40 @@ struct MealsService: MealsProtocol {
             return nil
         }
     }
+    
+    func fetchImagesForMealCollection(mealCollection: MealCollection) async throws -> AsyncThrowingStream<MealThumbnail?, Error> {
+        return AsyncThrowingStream { continuation in
+            Task {
+                do {
+                    try await withThrowingTaskGroup(of: MealThumbnail?.self) { taskGroup in
+                        for meal in mealCollection.meals {
+                            taskGroup.addTask {
+                                do {
+                                    if let image = try await networkService.fetchImage(urlString: meal.strMealThumb) {
+                                        return MealThumbnail(id: meal.idMeal, image: image)
+                                    } else {
+                                        return nil
+                                    }
+                                }
+                                catch {
+                                    throw error
+                                }
+                            }
+                            
+                        }
+                        
+                        for try await mealWithImage in taskGroup {
+                            continuation.yield(mealWithImage)
+                            
+                        }
+                        
+                        continuation.finish()
+                    }
+                } catch {
+                    continuation.finish(throwing: error)
+                }
+                
+            }
+        }
+    }
 }
