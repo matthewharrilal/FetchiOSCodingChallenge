@@ -8,7 +8,8 @@
 import Foundation
 
 protocol MealsProtocol {
-    func fetchMeals() async throws -> AllMeals?
+    func fetchMealCollection() async throws -> MealCollection?
+    func fetchImagesForMealCollection(mealCollection: MealCollection) async throws -> AsyncThrowingStream<MealThumbnail?, Error>
 }
 
 struct MealsService: MealsProtocol {
