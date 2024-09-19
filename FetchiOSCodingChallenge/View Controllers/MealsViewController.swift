@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MealsViewController.swift
 //  FetchiOSCodingChallenge
 //
 //  Created by Space Wizard on 9/18/24.
