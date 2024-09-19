@@ -21,6 +21,7 @@
 		76922E022C9B909D008BCD6E /* MealsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E012C9B909D008BCD6E /* MealsService.swift */; };
 		76922E042C9B92A6008BCD6E /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E032C9B92A6008BCD6E /* MealTableViewCell.swift */; };
 		76922E072C9BBE46008BCD6E /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E062C9BBE46008BCD6E /* ShimmerView.swift */; };
+		76922E0A2C9BEF48008BCD6E /* MealsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E092C9BEF48008BCD6E /* MealsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		76922E012C9B909D008BCD6E /* MealsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsService.swift; sourceTree = "<group>"; };
 		76922E032C9B92A6008BCD6E /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		76922E062C9BBE46008BCD6E /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
+		76922E092C9BEF48008BCD6E /* MealsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +111,7 @@
 		7673845A2C9B7F0500F96AC9 /* FetchiOSCodingChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				76922E082C9BEF13008BCD6E /* New Group */,
+				76922E082C9BEF13008BCD6E /* Actors */,
 				76922E052C9BBE35008BCD6E /* Helpers */,
 				7673848E2C9B7F1D00F96AC9 /* Cells */,
 				7673848D2C9B7F1800F96AC9 /* Services */,
@@ -183,11 +185,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		76922E082C9BEF13008BCD6E /* New Group */ = {
+		76922E082C9BEF13008BCD6E /* Actors */ = {
 			isa = PBXGroup;
 			children = (
+				76922E092C9BEF48008BCD6E /* MealsManager.swift */,
 			);
-			path = "New Group";
+			path = Actors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +327,7 @@
 				76922E002C9B871B008BCD6E /* NetworkService.swift in Sources */,
 				76922DFE2C9B864D008BCD6E /* Meals.swift in Sources */,
 				76922E042C9B92A6008BCD6E /* MealTableViewCell.swift in Sources */,
+				76922E0A2C9BEF48008BCD6E /* MealsManager.swift in Sources */,
 				767384602C9B7F0500F96AC9 /* ViewController.swift in Sources */,
 				76922E072C9BBE46008BCD6E /* ShimmerView.swift in Sources */,
 				7673845C2C9B7F0500F96AC9 /* AppDelegate.swift in Sources */,
