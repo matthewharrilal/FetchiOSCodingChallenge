@@ -35,6 +35,12 @@ class MealTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private var imageShimmerView: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -50,10 +56,10 @@ class MealTableViewCell: UITableViewCell {
         descriptionLabel.text = meal.idMeal
         
         if let image = meal.thumbnailImage {
+            removeShimmerView()
             thumbnailImageView.image = image
         } else {
-            // MARK: TODO Use placeholder image
-            thumbnailImageView.image = nil
+            configureShimmerView()
         }
     }
 }
@@ -80,6 +86,25 @@ private extension MealTableViewCell {
             descriptionLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 10),
             descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22)
+        ])
+    }
+    
+    func removeShimmerView() {
+        imageShimmerView.removeFromSuperview()
+        thumbnailImageView.isHidden = false
+    }
+    
+    func configureShimmerView() {
+        thumbnailImageView.isHidden = true
+        
+        contentView.addSubview(imageShimmerView)
+        
+        NSLayoutConstraint.activate([
+            imageShimmerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            imageShimmerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            imageShimmerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            imageShimmerView.widthAnchor.constraint(equalToConstant: 44),
+            imageShimmerView.heightAnchor.constraint(equalToConstant: 44),
         ])
     }
 }
