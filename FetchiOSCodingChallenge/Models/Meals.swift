@@ -9,10 +9,15 @@ import Foundation
 import UIKit
 
 struct MealCollection: Decodable, Hashable {
-    var meals: [Meal] // MARK: TODO Explain why this was made a var
+    // `meals` is mutable because we need to update the array after alphabetizing it.
+    var meals: [Meal]
 }
 
-// MARK: TODO Explain why this was made a class
+/* `Meal` is a class to ensure reference-based updates, allowing changes to
+   propagate to the original instance, which solves the issue of structs (value types)
+   creating copies when modified. Using an actor (`MealsManager`) ensures
+   thread-safe updates to the `thumbnailImage` property during asynchronous image fetching.
+ */
 class Meal: Decodable, Hashable {
     let strMeal: String
     let strMealThumb: String
