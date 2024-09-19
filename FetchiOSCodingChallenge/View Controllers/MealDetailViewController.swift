@@ -109,15 +109,15 @@ private extension MealDetailViewController {
     }
 }
 
-extension MealDetailViewController: MealsManagerUpdateProtocol {
+extension MealDetailViewController: MealsManagerDelegate {
     
-    func onMealThumbnailObtained(mealWithImage: MealThumbnail) {
-        guard mealWithImage.id == meal.idMeal else {
+    func didFetchMealThumbnail(_ mealThumbnail: MealThumbnail) {
+        guard mealThumbnail.id == meal.idMeal else {
             print("This meal we are updating the image view for is not the one we are currently displaying.")
             return
         }
         
         // Update the view with the new image
-        updateView(for: mealWithImage.image)
+        updateView(for: mealThumbnail.image)
     }
 }

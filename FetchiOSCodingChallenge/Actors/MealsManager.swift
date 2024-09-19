@@ -8,11 +8,17 @@
 import Foundation
 import UIKit
 
-// MARK: TODO Update Naming
-// MARK: TODO Check if this is bad practice
+/**
+ * This protocol lets you know when meal thumbnails have been fetched.
+ *
+ * When the `MealsManager` grabs a thumbnail image for a meal, it will notify the delegate through this method.
+ * The `@MainActor` attribute makes sure that everything runs on the main thread, so it's safe for UI updates.
+ *
+ * - Note: Any class that adopts this protocol should be ready for multithreading, especially if it’s updating the UI.
+ */
 @MainActor
-protocol MealsManagerUpdateProtocol: AnyObject {
-    func onMealThumbnailObtained(mealWithImage: MealThumbnail)
+protocol MealsManagerDelegate: AnyObject {
+    func didFetchMealThumbnail(_ mealThumbnail: MealThumbnail)
 }
 
 // MARK: TODO Explain use of Actor here
@@ -22,7 +28,7 @@ actor MealsManager {
     private let mealsService: MealsProtocol
     private var mealCollection: MealCollection = MealCollection(meals: [])
         
-    private weak var delegate: MealsManagerUpdateProtocol?
+    private weak var delegate: MealsManagerDelegate?
     
     public var mealList: MealCollection {
         self.mealCollection
@@ -44,11 +50,20 @@ actor MealsManager {
         mealCollection.meals = newMeals
     }
     
+    /**
+     * Updates the thumbnail image of a meal at the specified index and notifies the delegate asynchronously.
+     *
+     * Parameters:
+     * - mealWithImage: A `MealThumbnail` containing the updated thumbnail image for the meal.
+     * - index: The index of the meal to update.
+     *
+     * This method also notifies the delegate via the `onMealThumbnailObtained` method.
+     */
     public func updateMeal(mealWithImage: MealThumbnail, index: Int) async {
         mealCollection.meals[index].thumbnailImage = mealWithImage.image
         
         // MARK: TODO on why we made the method async and check if using delegates inside of an actor even if it works is bad practice
-        await delegate?.onMealThumbnailObtained(mealWithImage: mealWithImage)
+        await delegate?.didFetchMealThumbnail(mealWithImage)
     }
     
     public func populateMealCollection() async throws {
@@ -57,6 +72,15 @@ actor MealsManager {
         }
     }
     
+    /**
+     * Asynchronously fetches images for the current meal collection and returns them as an `AsyncThrowingStream`.
+     *
+     * Return:
+     * An `AsyncThrowingStream` that yields `MealThumbnail?` values as the images are fetched.
+     *
+     * Throws:
+     * An error if the image fetching fails.
+     */
     public func populateImagesForMealCollection() async throws -> AsyncThrowingStream<MealThumbnail?, Error> {
         do {
             return try await mealsService.fetchImagesForMealCollection(mealCollection: mealList)
@@ -66,8 +90,15 @@ actor MealsManager {
         }
     }
     
-    // MARK: TODO Add documentation
-    public func setDelegate(_ conformer: MealsManagerUpdateProtocol) {
+    /**
+     * - Goal - Sets the delegate to receive updates on meal thumbnail fetching.
+     *
+     * - Reasoning - We can't set the delegate outside of the actor's isolated context so have to pass the instance of the conformer back to actor's isolated context to set connection
+     *
+     * Parameters:
+     * - conformer: An object conforming to `MealsManagerUpdateProtocol` that will receive updates.
+     */
+    public func setDelegate(_ conformer: MealsManagerDelegate) {
         delegate = conformer
     }
 }

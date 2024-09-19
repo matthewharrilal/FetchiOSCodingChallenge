@@ -24,6 +24,18 @@ struct MealsService: MealsProtocol {
         self.networkService = networkService
     }
     
+    /**
+     * Goal: Fetches a collection of meals from the network, sorts them alphabetically by name, and returns the collection.
+     *
+     * Parameters:
+     * - None
+     *
+     * Return:
+     * An optional `MealCollection` that contains an alphabetically sorted list of meals. If the request fails or no meals are found, it returns `nil`.
+     *
+     * This method fetches the meal collection using the provided `networkService` and sorts the `meals` array in the `MealCollection` based on the meal names.
+     *
+     */
     func fetchMealCollection() async throws -> MealCollection? {
         do {
             if var mealCollection: MealCollection = try await networkService.executeRequest(urlString: Constants.mealCollectionURLString) {
