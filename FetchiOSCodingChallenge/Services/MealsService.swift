@@ -17,17 +17,17 @@ struct MealsService: MealsProtocol {
     private let networkService: NetworkProtocol
     
     enum Constants {
-        static let urlString: String = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
+        static let mealCollectionURLString: String = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
     }
     
     init(networkService: NetworkProtocol) {
         self.networkService = networkService
     }
     
-    func fetchMeals() async throws -> AllMeals? {
+    func fetchMealCollection() async throws -> MealCollection? {
         do {
-            if let meals: AllMeals = try await networkService.executeRequest(urlString: Constants.urlString) {
-                return meals
+            if let mealCollection: MealCollection = try await networkService.executeRequest(urlString: Constants.mealCollectionURLString) {
+                return mealCollection
             } else {
                 print("No meals found")
                 return nil
