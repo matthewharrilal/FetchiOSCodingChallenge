@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-struct AllMeals: Decodable, Hashable {
-    let meals: [Meal]
+struct MealCollection: Decodable, Hashable {
+    var meals: [Meal]
 }
 
-struct Meal: Decodable, Hashable {
+class Meal: Decodable, Hashable {
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
@@ -24,5 +24,23 @@ struct Meal: Decodable, Hashable {
         case strMeal
         case strMealThumb
         case idMeal
+    }
+    
+    static func == (lhs: Meal, rhs: Meal) -> Bool {
+        return lhs.idMeal == rhs.idMeal // Only compare the unique identifier, not the image
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(idMeal) // Only hash the unique identifier
+    }
+}
+
+class MealThumbnail {
+    let id: String
+    let image: UIImage
+    
+    init(id: String, image: UIImage) {
+        self.id = id
+        self.image = image
     }
 }
