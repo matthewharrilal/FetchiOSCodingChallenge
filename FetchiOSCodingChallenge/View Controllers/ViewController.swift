@@ -13,18 +13,14 @@ class MealsViewController: UIViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
     
-    private var meals: AllMeals = AllMeals(meals: []) {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+    private lazy var mealsManager = MealsManager()
+    
+    private var mealCollection: MealCollection = MealCollection(meals: [])
     
     private enum Section {
         case main
     }
-        
+    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +43,7 @@ class MealsViewController: UIViewController {
         
         setup()
         configureDataSource()
-        fetchAllMeals()
+        fetchMealCollection()
     }
 }
 
@@ -79,16 +75,44 @@ private extension MealsViewController {
         })
     }
     
-    func fetchAllMeals() {
+    func fetchMealCollection() {
         Task {
-            if let meals = try await mealsService.fetchMeals() {
-                self.meals = meals
+            if let mealCollection = try await mealsService.fetchMealCollection() {
+                await mealsManager.setMeals(mealCollection.meals)
+                self.mealCollection = await mealsManager.mealList
             }
             
             await MainActor.run {
                 applySnapshot()
             }
+            
+            loadImagesForMeals()
         }
+    }
+    
+    func loadImagesForMeals() {
+        Task {
+            do {
+                let mealWithImageStream = try await mealsService.fetchImagesForMealCollection(mealCollection: mealCollection)
+                
+                for try await mealWithImage in mealWithImageStream {
+                    if let mealWithImage = mealWithImage, let index = mealCollection.meals.firstIndex(where: {$0.idMeal == mealWithImage.id}) {
+                        await mealsManager.updateMeal(mealWithImage: mealWithImage, index: index)
+                        
+                        var snapshot = dataSource.snapshot()
+                        snapshot.reloadItems([mealCollection.meals[index]])
+                        
+                        await MainActor.run {
+                            dataSource.apply(snapshot, animatingDifferences: true)
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        
     }
     
     func applySnapshot() {
@@ -96,7 +120,7 @@ private extension MealsViewController {
         snapshot.appendSections([.main])
         
         // MARK: TODO Update Naming Here
-        snapshot.appendItems(meals.meals)
+        snapshot.appendItems(mealCollection.meals)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
