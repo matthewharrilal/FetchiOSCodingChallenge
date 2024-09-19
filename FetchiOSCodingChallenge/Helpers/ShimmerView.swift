@@ -31,8 +31,8 @@ class ShimmerView: UIView {
         let lightColor = UIColor(white: 0.85, alpha: 1.0).cgColor
         let darkColor = UIColor(white: 0.75, alpha: 1.0).cgColor
         gradientLayer.colors = [darkColor, lightColor, darkColor]
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
         gradientLayer.locations = [0.0, 0.5, 1.0]
         layer.addSublayer(gradientLayer)
     }
