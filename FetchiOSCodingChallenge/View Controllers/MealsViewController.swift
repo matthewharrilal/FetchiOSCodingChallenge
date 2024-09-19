@@ -23,10 +23,11 @@ class MealsViewController: UIViewController {
         case main
     }
     
-    private var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MealTableViewCell.self, forCellReuseIdentifier: MealTableViewCell.identifier)
+        tableView.delegate = self
         return tableView
     }()
     
@@ -124,5 +125,17 @@ private extension MealsViewController {
         // MARK: TODO Update Naming Here
         snapshot.appendItems(mealCollection.meals)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+}
+
+// MARK: UITableView Delegate Methods
+extension MealsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let meal = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        let mealDetailViewController = MealDetailViewController(mealsService: mealsService, meal: meal)
+        
+        present(mealDetailViewController, animated: true)
     }
 }
