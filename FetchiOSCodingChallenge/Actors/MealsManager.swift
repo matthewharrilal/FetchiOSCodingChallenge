@@ -8,17 +8,17 @@
 import Foundation
 
 actor MealsManager {
-    private var meals: AllMeals = AllMeals(meals: [])
+    private var mealCollection: MealCollection = MealCollection(meals: [])
     
-    public var currentMeals: AllMeals {
-        self.meals
+    public var mealList: MealCollection {
+        self.mealCollection
     }
     
     func setMeals(_ newMeals: [Meal]) {
-        meals.meals = newMeals
+        mealCollection.meals = newMeals
     }
     
-    func updateMeal(mealWithImage: MealWithImage, index: Int) {
-        meals.meals[index].thumbnailImage = mealWithImage.image
+    func updateMeal(mealWithImage: MealThumbnail, index: Int) {
+        mealCollection.meals[index].thumbnailImage = mealWithImage.image
     }
 }
