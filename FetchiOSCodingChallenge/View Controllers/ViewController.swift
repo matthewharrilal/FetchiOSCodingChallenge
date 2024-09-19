@@ -13,6 +13,8 @@ class MealsViewController: UIViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
     
+    // MARK: TODO Inject this
+    // MARK: TODO This probably can have the meals service injected into it as well so that the view controller only talks to mealsManager
     private lazy var mealsManager = MealsManager()
     
     private var mealCollection: MealCollection = MealCollection(meals: [])
@@ -66,6 +68,7 @@ private extension MealsViewController {
 // MARK: Data Source Related Methods
 private extension MealsViewController {
     
+    // MARK: TODO Explain Snapshot Issue
     func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Meal>(tableView: tableView, cellProvider: { tableView, indexPath, meal in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MealTableViewCell.identifier, for: indexPath) as? MealTableViewCell else { return UITableViewCell() }
@@ -90,6 +93,7 @@ private extension MealsViewController {
         }
     }
     
+    // MARK: TODO Explain Snapshot Issue
     func loadImagesForMeals() {
         Task {
             do {
@@ -111,8 +115,6 @@ private extension MealsViewController {
                 print(error)
             }
         }
-        
-        
     }
     
     func applySnapshot() {

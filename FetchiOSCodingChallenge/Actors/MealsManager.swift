@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: TODO Explain use of Actor here
 actor MealsManager {
     private var mealCollection: MealCollection = MealCollection(meals: [])
     

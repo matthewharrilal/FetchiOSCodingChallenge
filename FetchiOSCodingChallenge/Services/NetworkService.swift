@@ -37,6 +37,7 @@ class NetworkService: NetworkProtocol {
         }
     }
     
+    // MARK: TODO Change to downloadImage naming is more appropriate
     func fetchImage(urlString: String) async throws -> UIImage? {
         guard let url = URL(string: urlString) else { return nil }
         do {

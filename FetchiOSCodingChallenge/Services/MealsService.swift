@@ -40,6 +40,9 @@ struct MealsService: MealsProtocol {
         }
     }
     
+    // MARK: TODO Break this method up
+    // MARK: TODO Add documentation
+    // MARK: TODO Ensure proper error handling and throwing of errors 
     func fetchImagesForMealCollection(mealCollection: MealCollection) async throws -> AsyncThrowingStream<MealThumbnail?, Error> {
         return AsyncThrowingStream { continuation in
             Task {

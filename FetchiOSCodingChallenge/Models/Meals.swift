@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 
 struct MealCollection: Decodable, Hashable {
-    var meals: [Meal]
+    var meals: [Meal] // MARK: TODO Explain why this was made a var
 }
 
+// MARK: TODO Explain why this was made a class
 class Meal: Decodable, Hashable {
     let strMeal: String
     let strMealThumb: String
