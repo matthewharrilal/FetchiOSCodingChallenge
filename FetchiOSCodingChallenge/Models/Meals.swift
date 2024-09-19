@@ -36,12 +36,7 @@ class Meal: Decodable, Hashable {
     }
 }
 
-class MealThumbnail {
+struct MealThumbnail {
     let id: String
     let image: UIImage
-    
-    init(id: String, image: UIImage) {
-        self.id = id
-        self.image = image
-    }
 }
