@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-struct MealCollection: Decodable, Hashable {
-    // `meals` is mutable because we need to update the array after alphabetizing it.
-    var meals: [Meal]
-}
-
 /* `Meal` is a class to ensure reference-based updates, allowing changes to
    propagate to the original instance, which solves the issue of structs (value types)
    creating copies when modified. Using an actor (`MealsManager`) ensures
@@ -39,9 +34,4 @@ class Meal: Decodable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(idMeal) // Only hash the unique identifier
     }
-}
-
-struct MealThumbnail {
-    let id: String
-    let image: UIImage
 }
