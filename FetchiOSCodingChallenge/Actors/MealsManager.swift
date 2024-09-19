@@ -15,11 +15,19 @@ actor MealsManager {
         self.mealCollection
     }
     
-    func setMeals(_ newMeals: [Meal]) {
+    public func mealFor(index: Int) -> Meal? {
+        guard index < mealList.meals.count else {
+            return nil
+        }
+
+        return mealList.meals[index]
+    }
+    
+    public func setMeals(_ newMeals: [Meal]) {
         mealCollection.meals = newMeals
     }
     
-    func updateMeal(mealWithImage: MealThumbnail, index: Int) {
+    public func updateMeal(mealWithImage: MealThumbnail, index: Int) {
         mealCollection.meals[index].thumbnailImage = mealWithImage.image
     }
 }
