@@ -30,6 +30,7 @@ class MealDetailViewController: UIViewController {
         self.meal = meal
         super.init(nibName: nil, bundle: nil)
         
+        // MARK: Potential Issue Testing if image gets set in initial view controller before this delegate gets set and we are not notified of the changes
         Task {
             await mealsManager.setDelegate(self)
         }

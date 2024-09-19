@@ -120,7 +120,7 @@ private extension MealsService {
      * A `MealThumbnail?` containing the meal's ID and the fetched image. Returns `nil` if the image could not be retrieved.
      */
     func fetchMealThumbnail(with meal: Meal) async throws -> MealThumbnail? {
-        if let image = try await networkService.fetchImage(urlString: meal.strMealThumb) {
+        if let image = try await networkService.downloadImage(urlString: meal.strMealThumb) {
             return MealThumbnail(id: meal.idMeal, image: image)
         } else {
             return nil

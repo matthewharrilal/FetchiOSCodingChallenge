@@ -59,11 +59,11 @@ actor MealsManager {
      *
      * This method also notifies the delegate via the `onMealThumbnailObtained` method.
      */
-    public func updateMeal(mealWithImage: MealThumbnail, index: Int) async {
-        mealCollection.meals[index].thumbnailImage = mealWithImage.image
+    public func updateMeal(mealThumnbail: MealThumbnail, index: Int) async {
+        mealCollection.meals[index].thumbnailImage = mealThumnbail.image
         
         // MARK: TODO on why we made the method async and check if using delegates inside of an actor even if it works is bad practice
-        await delegate?.didFetchMealThumbnail(mealWithImage)
+        await delegate?.didFetchMealThumbnail(mealThumnbail)
     }
     
     public func populateMealCollection() async throws {

@@ -8,11 +8,8 @@
 import UIKit
 
 class MealsViewController: UIViewController {
-    
-    // MARK: TODO Inject this
-    // MARK: TODO This probably can have the meals service injected into it as well so that the view controller only talks to mealsManager
     private let mealsManager: MealsManager
-
+    
     private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
     
     private var mealCollection: MealCollection = MealCollection(meals: [])
@@ -80,13 +77,8 @@ private extension MealsViewController {
     func fetchMealCollection() {
         Task {
             try await mealsManager.populateMealCollection()
-            
             self.mealCollection = await mealsManager.mealList
-            
-            await MainActor.run {
-                applySnapshot()
-            }
-            
+            await applySnapshot()
             loadImagesForMeals()
         }
     }
@@ -95,19 +87,24 @@ private extension MealsViewController {
     func loadImagesForMeals() {
         Task {
             do {
-                let mealWithImageStream = try await mealsManager.populateImagesForMealCollection()
+                let mealThumbnailStream = try await mealsManager.populateImagesForMealCollection()
                 
-                for try await mealWithImage in mealWithImageStream {
-                    if let mealWithImage = mealWithImage, let index = mealCollection.meals.firstIndex(where: {$0.idMeal == mealWithImage.id}) {
-                        await mealsManager.updateMeal(mealWithImage: mealWithImage, index: index)
-                        
-                        var snapshot = dataSource.snapshot()
-                        snapshot.reloadItems([mealCollection.meals[index]])
-                        
-                        await MainActor.run {
-                            dataSource.apply(snapshot, animatingDifferences: true)
-                        }
+                for try await mealThumbnail in mealThumbnailStream {
+                    guard
+                        let mealThumnbail = mealThumbnail,
+                        let index = mealCollection.meals.firstIndex(
+                            where: {$0.idMeal == mealThumnbail.id}
+                        )
+                    else {
+                        continue
                     }
+                    
+                    await mealsManager.updateMeal(
+                        mealThumnbail: mealThumnbail,
+                        index: index
+                    )
+                    
+                    await reloadSnapshot(with: index)
                 }
             } catch {
                 print(error)
@@ -115,13 +112,24 @@ private extension MealsViewController {
         }
     }
     
-    func applySnapshot() {
+    func applySnapshot() async {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Meal>()
         snapshot.appendSections([.main])
         
-        // MARK: TODO Update Naming Here
         snapshot.appendItems(mealCollection.meals)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        
+        await MainActor.run {
+            dataSource.apply(snapshot, animatingDifferences: true)
+        }
+    }
+    
+    func reloadSnapshot(with index: Int) async {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([mealCollection.meals[index]])
+        
+        await MainActor.run {
+            dataSource.apply(snapshot, animatingDifferences: true)
+        }
     }
 }
 

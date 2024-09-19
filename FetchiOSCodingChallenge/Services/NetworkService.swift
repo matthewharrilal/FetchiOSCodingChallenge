@@ -10,7 +10,7 @@ import UIKit
 
 protocol NetworkProtocol {
     func executeRequest<T>(urlString: String) async throws -> T? where T: Decodable
-    func fetchImage(urlString: String) async throws -> UIImage?
+    func downloadImage(urlString: String) async throws -> UIImage?
 }
 
 class NetworkService: NetworkProtocol {
@@ -37,8 +37,7 @@ class NetworkService: NetworkProtocol {
         }
     }
     
-    // MARK: TODO Change to downloadImage naming is more appropriate
-    func fetchImage(urlString: String) async throws -> UIImage? {
+    func downloadImage(urlString: String) async throws -> UIImage? {
         guard let url = URL(string: urlString) else { return nil }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
