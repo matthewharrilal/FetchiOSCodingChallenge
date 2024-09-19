@@ -9,13 +9,11 @@ import UIKit
 
 class MealsViewController: UIViewController {
     
-    private let mealsService: MealsProtocol
-    
-    private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
-    
     // MARK: TODO Inject this
     // MARK: TODO This probably can have the meals service injected into it as well so that the view controller only talks to mealsManager
-    private lazy var mealsManager = MealsManager()
+    private let mealsManager: MealsManager
+
+    private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
     
     private var mealCollection: MealCollection = MealCollection(meals: [])
     
@@ -31,8 +29,8 @@ class MealsViewController: UIViewController {
         return tableView
     }()
     
-    init(mealsService: MealsProtocol) {
-        self.mealsService = mealsService
+    init(mealsManager: MealsManager) {
+        self.mealsManager = mealsManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -81,10 +79,9 @@ private extension MealsViewController {
     
     func fetchMealCollection() {
         Task {
-            if let mealCollection = try await mealsService.fetchMealCollection() {
-                await mealsManager.setMeals(mealCollection.meals)
-                self.mealCollection = await mealsManager.mealList
-            }
+            try await mealsManager.populateMealCollection()
+            
+            self.mealCollection = await mealsManager.mealList
             
             await MainActor.run {
                 applySnapshot()
@@ -98,7 +95,7 @@ private extension MealsViewController {
     func loadImagesForMeals() {
         Task {
             do {
-                let mealWithImageStream = try await mealsService.fetchImagesForMealCollection(mealCollection: mealCollection)
+                let mealWithImageStream = try await mealsManager.populateImagesForMealCollection()
                 
                 for try await mealWithImage in mealWithImageStream {
                     if let mealWithImage = mealWithImage, let index = mealCollection.meals.firstIndex(where: {$0.idMeal == mealWithImage.id}) {
@@ -134,7 +131,7 @@ extension MealsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let meal = dataSource.itemIdentifier(for: indexPath) else { return }
         
-        let mealDetailViewController = MealDetailViewController(mealsService: mealsService, meal: meal)
+        let mealDetailViewController = MealDetailViewController(mealsManager: mealsManager, meal: meal)
         
         present(mealDetailViewController, animated: true)
     }
