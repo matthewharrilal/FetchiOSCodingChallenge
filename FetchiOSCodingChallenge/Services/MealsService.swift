@@ -26,7 +26,8 @@ struct MealsService: MealsProtocol {
     
     func fetchMealCollection() async throws -> MealCollection? {
         do {
-            if let mealCollection: MealCollection = try await networkService.executeRequest(urlString: Constants.mealCollectionURLString) {
+            if var mealCollection: MealCollection = try await networkService.executeRequest(urlString: Constants.mealCollectionURLString) {
+                mealCollection.meals = mealCollection.meals.sorted { $0.strMeal.lowercased() < $1.strMeal.lowercased() }
                 return mealCollection
             } else {
                 print("No meals found")

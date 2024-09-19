@@ -22,7 +22,7 @@ actor MealsManager {
     private let mealsService: MealsProtocol
     private var mealCollection: MealCollection = MealCollection(meals: [])
         
-    public weak var delegate: MealsManagerUpdateProtocol?
+    private weak var delegate: MealsManagerUpdateProtocol?
     
     public var mealList: MealCollection {
         self.mealCollection
