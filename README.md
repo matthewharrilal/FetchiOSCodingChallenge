@@ -40,7 +40,7 @@ open FetchiOSCodingChallenge.xcodeproj
 |   |-- MealsService.swift
 |   |-- NetworkService.swift
 |
-|-- Managers/
+|-- Actors/
 |   |-- MealsManager.swift
 |
 |-- ViewControllers/
@@ -57,7 +57,7 @@ open FetchiOSCodingChallenge.xcodeproj
 
 - **Models/**: Defines `Meal`, `MealCollection`, `MealDetails`, and `MealThumbnail` for managing meal data.
 - **Services/**: Handles network requests using `MealsService` and `NetworkService` for fetching data from TheMealDB API.
-- **Managers/**: `MealsManager` actor manages safe concurrent access to meals and handles updates.
+- **Actors/**: `MealsManager` actor manages safe concurrent access to meals and handles updates.
 - **ViewControllers/**: `MealsViewController` displays the meal list, while `MealDetailViewController` handles meal details.
 - **Views/**: Custom `UITableViewCell` for meal display and `ShimmerView` for loading states.
 - **Utilities/**: Contains extensions and helper methods, like styled label creation.
