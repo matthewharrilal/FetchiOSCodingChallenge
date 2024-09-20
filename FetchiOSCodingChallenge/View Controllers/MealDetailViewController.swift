@@ -53,6 +53,12 @@ class MealDetailViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var detailsShimmerView: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
+    }()
+    
     init(mealsManager: MealsManagerProtocol, meal: Meal) {
         self.mealsManager = mealsManager
         self.meal = meal
@@ -87,6 +93,7 @@ private extension MealDetailViewController {
             if let mealDetails = try await mealsManager.fetchDetailsForMeal(meal: meal) {
                 await MainActor.run {
                     configureDetailsForMeal(with: mealDetails.meals[0])
+                    updateDetailsView(for: mealDetails.meals[0])
                 }
             }
         }
@@ -102,7 +109,9 @@ private extension MealDetailViewController {
     func layoutViews() {
         view.addSubview(containerView)
         view.addSubview(scrollView)
+        
         scrollView.addSubview(detailsStackView)
+        scrollView.addSubview(detailsShimmerView)
         
         let horizontalInset: CGFloat = 16
         
@@ -124,11 +133,19 @@ private extension MealDetailViewController {
             detailsStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: horizontalInset),
             detailsStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -horizontalInset),
             detailsStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            detailsStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -2 * horizontalInset)
+            detailsStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -2 * horizontalInset),
+            
+            // Shimmer View Constraints (for details stack view)
+            detailsShimmerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            detailsShimmerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: horizontalInset),
+            detailsShimmerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -horizontalInset),
+            detailsShimmerView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            detailsShimmerView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -2 * horizontalInset)
         ])
         
-        layoutShimmerView()
+        layoutShimmerView() // For the image shimmer
     }
+    
 }
 
 // MARK: - View Update Methods
@@ -143,6 +160,15 @@ private extension MealDetailViewController {
         }
     }
     
+    func updateDetailsView(for mealDetail: MealDetail?) {
+        if let mealDetail = mealDetail {
+            configureDetailsForMeal(with: mealDetail)
+            showDetailsStackView() // Show details stack view when data is fetched
+        } else {
+            showDetailsShimmerView() // Show shimmer view if no details yet
+        }
+    }
+    
     func showShimmerView() {
         imageView.isHidden = true
         shimmerView.isHidden = false
@@ -153,6 +179,16 @@ private extension MealDetailViewController {
         shimmerView.isHidden = true
         imageView.isHidden = false
         layoutImageView()
+    }
+    
+    func showDetailsShimmerView() {
+        detailsStackView.isHidden = true
+        detailsShimmerView.isHidden = false
+    }
+    
+    func showDetailsStackView() {
+        detailsShimmerView.isHidden = true
+        detailsStackView.isHidden = false
     }
     
     func layoutShimmerView() {

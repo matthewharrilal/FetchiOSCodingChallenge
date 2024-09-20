@@ -104,6 +104,15 @@ private extension MealsViewController {
         }
     }
     
+    /**
+     * Asynchronously loads images for all meals in the current collection.
+     *
+     *
+     * This method fetches the meal thumbnail images asynchronously from `mealsManager` using an `AsyncThrowingStream`.
+     * For each fetched image, the corresponding `Meal` object in `mealCollection` is updated, and the UITableView snapshot
+     * is reloaded to reflect the new image.
+     *
+     */
     func loadImagesForMeals() {
         Task {
             do {
@@ -113,12 +122,13 @@ private extension MealsViewController {
                     guard
                         let mealThumnbail = mealThumbnail,
                         let index = mealCollection.meals.firstIndex(
-                            where: {$0.idMeal == mealThumnbail.id}
+                            where: {$0.idMeal == mealThumnbail.id} // Find the original data source object that matches the id of the image we just fetched
                         )
                     else {
                         continue
                     }
                     
+                    // Updating the original meal object (class object) inside an actor for the synchronzied serialized access that the actor model provides
                     await mealsManager.updateMeal(
                         mealThumnbail: mealThumnbail,
                         index: index
