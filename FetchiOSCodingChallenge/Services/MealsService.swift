@@ -94,6 +94,7 @@ struct MealsService: MealsProtocol {
     }
 }
 
+// MARK: - Helper Methods
 private extension MealsService {
     
     /**

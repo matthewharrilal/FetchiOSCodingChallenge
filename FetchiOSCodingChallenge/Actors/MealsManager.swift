@@ -21,7 +21,6 @@ protocol MealsManagerDelegate: AnyObject {
     func didFetchMealThumbnail(_ mealThumbnail: MealThumbnail)
 }
 
-// MARK: TODO Explain use of Actor here
 // MARK: TODO Abstract these methods to a protocol
 
 actor MealsManager {
@@ -70,6 +69,10 @@ actor MealsManager {
         if let mealsCollection = try await mealsService.fetchMealCollection() {
             setMeals(mealsCollection.meals)
         }
+    }
+    
+    public func fetchDetailsForMeal(meal: Meal) async throws -> MealDetails? {
+        return try await mealsService.fetchDetailsForMeal(meal: meal)
     }
     
     /**

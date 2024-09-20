@@ -64,6 +64,7 @@ class MealTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - UI Related Methods
 private extension MealTableViewCell {
     
     func setup() {

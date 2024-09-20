@@ -82,7 +82,7 @@ private extension MealsViewController {
     }
 }
 
-// MARK: Data Source Related Methods
+// MARK: - Data Source Related Methods
 private extension MealsViewController {
     
     // MARK: TODO Explain Snapshot Issue
@@ -104,7 +104,6 @@ private extension MealsViewController {
         }
     }
     
-    // MARK: TODO Explain Snapshot Issue
     func loadImagesForMeals() {
         Task {
             do {
@@ -154,7 +153,7 @@ private extension MealsViewController {
     }
 }
 
-// MARK: UITableView Delegate Methods
+// MARK: - UITableView Delegate Methods
 extension MealsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
