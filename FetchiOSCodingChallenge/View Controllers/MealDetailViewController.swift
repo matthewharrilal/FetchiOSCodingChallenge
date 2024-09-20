@@ -141,7 +141,6 @@ private extension MealDetailViewController {
         } else {
             showShimmerView()
         }
-        animateLayoutUpdate()
     }
     
     func showShimmerView() {
@@ -172,12 +171,6 @@ private extension MealDetailViewController {
             imageView.heightAnchor.constraint(equalToConstant: 160),
             imageView.widthAnchor.constraint(equalToConstant: 160)
         ])
-    }
-    
-    func animateLayoutUpdate() {
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
     }
 }
 
@@ -227,7 +220,7 @@ private extension MealDetailViewController {
         
         return NSAttributedString(string: text, attributes: [
             .paragraphStyle: paragraphStyle,
-            .font: UIFont.systemFont(ofSize: 16)
+            .font: UIFont.systemFont(ofSize: 18)
         ])
     }
 }
