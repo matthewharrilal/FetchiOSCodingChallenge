@@ -39,14 +39,14 @@ class MealDetailViewController: UIViewController {
         return shimmerView
     }()
     
-    private let nameLabel = UILabel.createDetailLabel()
-    private let categoryLabel = UILabel.createDetailLabel()
-    private let instructionsLabel = UILabel.createDetailLabel()
-    private let ingredientsLabel = UILabel.createDetailLabel()
+    private let nameLabel = UILabel.createStyledDetailLabel()
+    private let categoryLabel = UILabel.createStyledDetailLabel()
+    private let instructionsLabel = UILabel.createStyledDetailLabel()
+    private let ingredientsMeasurementsLabel = UILabel.createStyledDetailLabel()
     
     // Stack view to arrange all the labels vertically
     private lazy var detailsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, categoryLabel, instructionsLabel, ingredientsLabel])
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, categoryLabel, instructionsLabel, ingredientsMeasurementsLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -187,8 +187,12 @@ private extension MealDetailViewController {
     func configureDetailsForMeal(with mealDetail: MealDetail) {
         nameLabel.text = mealDetail.strMeal
         categoryLabel.text = "\(mealDetail.strCategory) - \(mealDetail.strArea)"
-        instructionsLabel.text = mealDetail.strInstructions
         
+        // Add paragraph spacing to the instructions text
+        let instructionsAttributedString = applyParagraphStyle(to: mealDetail.strInstructions, lineSpacing: 6, paragraphSpacing: 10)
+        instructionsLabel.attributedText = instructionsAttributedString
+        
+        // Ingredients and measurements
         let ingredients = [
             mealDetail.strIngredient1, mealDetail.strIngredient2, mealDetail.strIngredient3,
             mealDetail.strIngredient4, mealDetail.strIngredient5, mealDetail.strIngredient6,
@@ -196,7 +200,35 @@ private extension MealDetailViewController {
             mealDetail.strIngredient10, mealDetail.strIngredient11
         ].compactMap { $0?.isEmpty == true ? nil : $0 }
         
-        ingredientsLabel.text = ingredients.joined(separator: ", ")
+        let measurements = [
+            mealDetail.strMeasure1, mealDetail.strMeasure2, mealDetail.strMeasure3,
+            mealDetail.strMeasure4, mealDetail.strMeasure5, mealDetail.strMeasure6,
+            mealDetail.strMeasure7, mealDetail.strMeasure8, mealDetail.strMeasure9,
+            mealDetail.strMeasure10, mealDetail.strMeasure11, mealDetail.strMeasure12,
+            mealDetail.strMeasure13
+        ].compactMap { $0?.isEmpty == true ? nil : $0 }
+        
+        // Pair the ingredients and measurements together and format them
+        let ingredientMeasurements = zip(ingredients, measurements)
+            .map { ingredient, measurement in
+                return "\(measurement) \(ingredient)"
+            }.joined(separator: "\n") // Display each pair on a new line
+        
+        // Set the label text to the formatted ingredients and measurements
+        let ingredientMeasurementsAttributedString = applyParagraphStyle(to: ingredientMeasurements, lineSpacing: 4, paragraphSpacing: 8)
+        ingredientsMeasurementsLabel.attributedText = ingredientMeasurementsAttributedString
+    }
+    
+    // Helper method to apply paragraph styling
+    func applyParagraphStyle(to text: String, lineSpacing: CGFloat, paragraphSpacing: CGFloat) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.paragraphSpacing = paragraphSpacing
+        
+        return NSAttributedString(string: text, attributes: [
+            .paragraphStyle: paragraphStyle,
+            .font: UIFont.systemFont(ofSize: 16)
+        ])
     }
 }
 
@@ -214,10 +246,18 @@ extension MealDetailViewController: MealsManagerDelegate {
 
 // MARK: - UILabel Extension for Creating Detail Labels
 private extension UILabel {
-    static func createDetailLabel() -> UILabel {
+    static func createStyledDetailLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .darkText
+        label.textAlignment = .left
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        label.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        
         return label
     }
 }
