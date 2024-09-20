@@ -33,7 +33,6 @@ protocol MealsManagerProtocol: Actor {
     func setDelegate(_ conformer: MealsManagerDelegate)
 }
 
-// MARK: TODO Abstract these methods to a protocol
 
 actor MealsManagerImplementation: MealsManagerProtocol {
     private let mealsService: MealsProtocol
