@@ -39,8 +39,8 @@ class MealDetailViewController: UIViewController {
         return shimmerView
     }()
     
-    private let nameLabel = UILabel.createStyledDetailLabel()
-    private let categoryLabel = UILabel.createStyledDetailLabel()
+    private let nameLabel = UILabel.createStyledDetailLabel(useMediumFont: true)
+    private let categoryLabel = UILabel.createStyledDetailLabel(useMediumFont: true)
     private let instructionsLabel = UILabel.createStyledDetailLabel()
     private let ingredientsMeasurementsLabel = UILabel.createStyledDetailLabel()
     
@@ -246,11 +246,11 @@ extension MealDetailViewController: MealsManagerDelegate {
 
 // MARK: - UILabel Extension for Creating Detail Labels
 private extension UILabel {
-    static func createStyledDetailLabel() -> UILabel {
+    static func createStyledDetailLabel(useMediumFont: Bool = false) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = useMediumFont ? UIFont(name: "Poppins-Medium", size: 18) : UIFont(name: "Poppins-Regular", size: 18)
         label.textColor = .darkText
         label.textAlignment = .left
         

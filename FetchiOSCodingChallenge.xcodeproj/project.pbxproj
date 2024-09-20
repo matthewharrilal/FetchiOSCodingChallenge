@@ -26,6 +26,8 @@
 		76922E0E2C9CDEFD008BCD6E /* MealCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E0D2C9CDEFD008BCD6E /* MealCollection.swift */; };
 		76922E102C9CDF15008BCD6E /* MealThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E0F2C9CDF15008BCD6E /* MealThumbnail.swift */; };
 		76922E122C9CDF2E008BCD6E /* MealDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76922E112C9CDF2E008BCD6E /* MealDetails.swift */; };
+		76922E162C9D0AD1008BCD6E /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76922E142C9D0AD1008BCD6E /* Poppins-Medium.ttf */; };
+		76922E172C9D0AD1008BCD6E /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76922E152C9D0AD1008BCD6E /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		76922E0D2C9CDEFD008BCD6E /* MealCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollection.swift; sourceTree = "<group>"; };
 		76922E0F2C9CDF15008BCD6E /* MealThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealThumbnail.swift; sourceTree = "<group>"; };
 		76922E112C9CDF2E008BCD6E /* MealDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetails.swift; sourceTree = "<group>"; };
+		76922E142C9D0AD1008BCD6E /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		76922E152C9D0AD1008BCD6E /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 		7673845A2C9B7F0500F96AC9 /* FetchiOSCodingChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				76922E132C9D0AC6008BCD6E /* Fonts */,
 				76922E082C9BEF13008BCD6E /* Actors */,
 				76922E052C9BBE35008BCD6E /* Helpers */,
 				7673848E2C9B7F1D00F96AC9 /* Cells */,
@@ -203,6 +208,15 @@
 				76922E092C9BEF48008BCD6E /* MealsManager.swift */,
 			);
 			path = Actors;
+			sourceTree = "<group>";
+		};
+		76922E132C9D0AC6008BCD6E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				76922E142C9D0AD1008BCD6E /* Poppins-Medium.ttf */,
+				76922E152C9D0AD1008BCD6E /* Poppins-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,8 +324,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				767384682C9B7F0600F96AC9 /* LaunchScreen.storyboard in Resources */,
+				76922E162C9D0AD1008BCD6E /* Poppins-Medium.ttf in Resources */,
 				767384652C9B7F0600F96AC9 /* Assets.xcassets in Resources */,
 				767384632C9B7F0500F96AC9 /* Main.storyboard in Resources */,
+				76922E172C9D0AD1008BCD6E /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

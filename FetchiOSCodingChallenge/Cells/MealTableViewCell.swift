@@ -18,12 +18,14 @@ class MealTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.font = UIFont(name: "Poppins-Medium", size: 18)
         return label
     }()
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Poppins-Regular", size: 18)
         label.numberOfLines = 0
         return label
     }()
