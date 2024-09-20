@@ -1,5 +1,5 @@
 //
-//  MealManager.swift
+//  MealsManager.swift
 //  FetchiOSCodingChallenge
 //
 //  Created by Space Wizard on 9/19/24.
@@ -21,9 +21,21 @@ protocol MealsManagerDelegate: AnyObject {
     func didFetchMealThumbnail(_ mealThumbnail: MealThumbnail)
 }
 
+protocol MealsManagerProtocol: Actor {
+    var mealList: MealCollection { get }
+    
+    func mealFor(index: Int) -> Meal?
+    func setMeals(_ newMeals: [Meal])
+    func updateMeal(mealThumnbail: MealThumbnail, index: Int) async
+    func populateMealCollection() async throws
+    func fetchDetailsForMeal(meal: Meal) async throws -> MealDetails?
+    func populateImagesForMealCollection() async throws -> AsyncThrowingStream<MealThumbnail?, Error>
+    func setDelegate(_ conformer: MealsManagerDelegate)
+}
+
 // MARK: TODO Abstract these methods to a protocol
 
-actor MealsManager {
+actor MealsManagerImplementation: MealsManagerProtocol {
     private let mealsService: MealsProtocol
     private var mealCollection: MealCollection = MealCollection(meals: [])
         

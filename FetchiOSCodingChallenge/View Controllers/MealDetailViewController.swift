@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MealDetailViewController: UIViewController {
-    private let mealsManager: MealsManager
+    private let mealsManager: MealsManagerProtocol
     private let meal: Meal
     
     // UI Elements
@@ -53,7 +53,7 @@ class MealDetailViewController: UIViewController {
         return stackView
     }()
     
-    init(mealsManager: MealsManager, meal: Meal) {
+    init(mealsManager: MealsManagerProtocol, meal: Meal) {
         self.mealsManager = mealsManager
         self.meal = meal
         super.init(nibName: nil, bundle: nil)

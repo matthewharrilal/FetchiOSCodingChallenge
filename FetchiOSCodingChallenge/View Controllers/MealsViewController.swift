@@ -29,7 +29,7 @@ import UIKit
  */
 
 class MealsViewController: UIViewController {
-    private let mealsManager: MealsManager
+    private let mealsManager: MealsManagerProtocol
     
     private var dataSource: UITableViewDiffableDataSource<Section, Meal>!
     
@@ -47,7 +47,7 @@ class MealsViewController: UIViewController {
         return tableView
     }()
     
-    init(mealsManager: MealsManager) {
+    init(mealsManager: MealsManagerProtocol) {
         self.mealsManager = mealsManager
         super.init(nibName: nil, bundle: nil)
     }
@@ -160,7 +160,6 @@ extension MealsViewController: UITableViewDelegate {
         guard let meal = dataSource.itemIdentifier(for: indexPath) else { return }
         
         let mealDetailViewController = MealDetailViewController(mealsManager: mealsManager, meal: meal)
-        
         present(mealDetailViewController, animated: true)
     }
 }

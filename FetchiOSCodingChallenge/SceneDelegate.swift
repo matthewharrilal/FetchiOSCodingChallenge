@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let networkService = NetworkService()
         let mealsService = MealsService(networkService: networkService)
-        let mealsManager = MealsManager(mealsService: mealsService)
+        let mealsManager = MealsManagerImplementation(mealsService: mealsService)
 
         let mealsViewController = MealsViewController(mealsManager: mealsManager)
         window?.rootViewController = mealsViewController
