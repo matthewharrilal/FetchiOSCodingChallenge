@@ -1,25 +1,19 @@
 # Recipe Explorer - iOS Coding Challenge
 
 ## Overview
-This iOS application allows users to browse and explore dessert recipes using data fetched from TheMealDB API. Users can select a dessert to view details, including the meal name, instructions, and a list of ingredients with measurements.
+Recipe Explorer is an iOS app that allows users to browse and explore dessert recipes fetched from TheMealDB API. Users can view details such as the name, thumbnail image, cooking instructions, and ingredients.
 
-The app is built using **Swift Concurrency (async/await)** for efficient and smooth handling of asynchronous API calls and the usage of **custom Actors**.
+The app leverages **Swift Concurrency (async/await)** for efficient asynchronous API calls and **custom Actors** to serialize in a concurrent environment.
 
 ## Features
-- Displays a list of dessert meals fetched from TheMealDB API.
-- Alphabetically sorted list of meals in the Dessert category.
-- Detailed meal view, including:
-  - Meal thumbnail image
-  - Meal name
-  - Cooking instructions
-  - Ingredients with measurements
-- Filters out null or empty values from the API to ensure clean data display.
+- Browse a list of dessert meals from TheMealDB API.
+- View detailed meal info: thumbnail, name, instructions, and ingredients.
+- Alphabetically sorted meal list.
+- Filters out null/empty values for clean UI.
 
 ## API Endpoints
-- **Dessert Meals List**: Fetches the list of meals in the Dessert category.
-  - URL: `https://themealdb.com/api/json/v1/1/filter.php?c=Dessert`
-- **Meal Details**: Fetches detailed information for a specific meal by its ID.
-  - URL: `https://themealdb.com/api/json/v1/1/lookup.php?i=MEAL_ID`
+- **Dessert Meals List**: [TheMealDB API](https://themealdb.com/api/json/v1/1/filter.php?c=Dessert)
+- **Meal Details**: [TheMealDB API](https://themealdb.com/api/json/v1/1/lookup.php?i=MEAL_ID)
 
 ## Requirements
 - Xcode (latest version)
@@ -27,32 +21,55 @@ The app is built using **Swift Concurrency (async/await)** for efficient and smo
 - Swift 5.5+
 
 ## Installation
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/FetchiOSCodingChallenge.git
-   ```
+```bash
+git clone https://github.com/yourusername/FetchiOSCodingChallenge.git
+cd FetchiOSCodingChallenge
+open FetchiOSCodingChallenge.xcodeproj
+```
 
-2. **Navigate to the project directory:**
-   ```bash
-   cd FetchiOSCodingChallenge
-   ```
+## Project Structure
 
-3. **Open the project in Xcode:**
-   ```bash
-   open FetchiOSCodingChallenge.xcodeproj
-   ```
+```
+|-- Models/
+|   |-- Meal.swift
+|   |-- MealCollection.swift
+|   |-- MealDetails.swift
+|   |-- MealThumbnail.swift
+|
+|-- Services/
+|   |-- MealsService.swift
+|   |-- NetworkService.swift
+|
+|-- Managers/
+|   |-- MealsManager.swift
+|
+|-- ViewControllers/
+|   |-- MealsViewController.swift
+|   |-- MealDetailViewController.swift
+|
+|-- Views/
+|   |-- MealTableViewCell.swift
+|   |-- ShimmerView.swift
+|
+|-- Utilities/
+|   |-- UILabel+Extensions.swift
+```
 
-4. **Build and run** the app in the simulator or on a physical device.
+- **Models/**: Defines `Meal`, `MealCollection`, `MealDetails`, and `MealThumbnail` for managing meal data.
+- **Services/**: Handles network requests using `MealsService` and `NetworkService` for fetching data from TheMealDB API.
+- **Managers/**: `MealsManager` actor manages safe concurrent access to meals and handles updates.
+- **ViewControllers/**: `MealsViewController` displays the meal list, while `MealDetailViewController` handles meal details.
+- **Views/**: Custom `UITableViewCell` for meal display and `ShimmerView` for loading states.
+- **Utilities/**: Contains extensions and helper methods, like styled label creation.
 
-## Architecture & Design Patterns
-- **MVC (Model-View-Controller)**: Provides a clear separation of concerns between data, UI, and business logic.
-- **Swift Concurrency**: All asynchronous operations are handled using `async/await` for cleaner and more efficient code and usage of `custom Actors`.
-- **Diffable Data Source**: Used to handle updates in the table view efficiently when fetching meal data.
+## Architecture & Patterns
+- **MVC**: Clear separation of data, UI, and logic.
+- **Swift Concurrency**: `async/await` for asynchronous operations.
+- **Actors**: Safely manage meal state and prevent race conditions.
+- **Diffable Data Source**: Efficient updates in `UITableView`.
 
 ## Future Improvements
-- Add offline caching of meals and recipes.
-- Implement a search feature to explore other recipe categories.
-- Improve the user interface with custom designs and animations.
-- Prefetch items in SceneDelegate before initial showing of meals.
-- Add shimmer view for Meal Detail text.
-- Add more comprehensive testing. 
+- Offline caching of meals and images.
+- Add search functionality to explore more categories.
+- UI improvements and shimmer effects for loading.
+- Comprehensive unit tests.
