@@ -120,7 +120,6 @@ private extension MealsService {
             }
             
             for try await mealWithImage in taskGroup {
-                try await Task.sleep(nanoseconds: 100_000_000)
                 continuation.yield(mealWithImage)
             }
             
